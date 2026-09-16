@@ -234,7 +234,7 @@ img {
   display: grid;
   place-items: center;
   aspect-ratio: 1;
-  width: min(96vw, 34rem);
+  width: min(100%, 34rem);
   margin: clamp(1rem, 4vw, 2rem) auto clamp(1.5rem, 5vw, 2.5rem);
 }
 
@@ -246,7 +246,7 @@ img {
   display: grid;
   place-items: center;
   text-align: center;
-  width: min(26vw, 8rem);
+  width: min(27vw, 8rem);
   aspect-ratio: 1;
   border-radius: 50%;
   background: radial-gradient(circle at 38% 32%, #ffe3a8, var(--sol) 42%, var(--sol-brasa) 88%);
@@ -258,6 +258,17 @@ img {
   font-variation-settings: "SOFT" 0, "WONK" 1;
   font-size: clamp(0.95rem, 3.4vw, 1.2rem);
   line-height: 1.05;
+}
+
+/* Anéis e órbitas são caixas quadradas empilhadas: sem isto, a maior cobre
+   as menores e só o planeta externo recebe clique. */
+.anel,
+.orbita {
+  pointer-events: none;
+}
+
+.planeta {
+  pointer-events: auto;
 }
 
 .anel {
@@ -318,30 +329,27 @@ img {
   color: var(--cor);
 }
 
-/* No celular não há largura para seis rótulos girando: ficam os pontos,
-   com o nome disponível para leitores de tela e teclado. */
-@media (max-width: 47.99em) {
-  .planeta span {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-  }
-  .planeta {
-    padding: 0.85rem;
-  }
-  .planeta::before {
-    width: 0.85rem;
-    height: 0.85rem;
-  }
+.planeta span {
+  background: var(--tinta);
+  padding-inline: 0.15rem;
 }
 
-@media (min-width: 48em) {
-  .planeta span {
-    background: var(--tinta);
-    padding-inline: 0.15rem;
+/* No celular o diagrama usa a largura inteira da tela e o rótulo encolhe,
+   para que os seis nomes caibam girando sem se alcançar. */
+@media (max-width: 47.99em) {
+  .sistema {
+    --raio: 31vw;
+    width: 100%;
+  }
+  .planeta {
+    font-size: 0.7rem;
+    gap: 0.3rem;
+    padding: 0.7rem 0.4rem;
+  }
+  .planeta::before {
+    width: 0.55rem;
+    height: 0.55rem;
+    box-shadow: 0 0 0 0.25rem var(--tinta);
   }
 }
 
