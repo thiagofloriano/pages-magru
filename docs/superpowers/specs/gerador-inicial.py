@@ -339,7 +339,7 @@ def home():
     </ul>
   </div>
 
-  <div class="envelope prosa" style="margin-inline: auto">
+  <div class="envelope prosa">
     <h2>Quem é Magru Floriano</h2>
     <p>Hélio Floriano dos Santos nasceu em Itajaí em 13 de agosto de 1956. Começou na imprensa em 1975, editando o jornal alternativo <em>Atire a Primeira Pedra</em>, e desde então foi repórter do Jornal de Santa Catarina, professor da Univali por 28 anos, fundador do curso de Jornalismo e da Rádio Univali FM, presidente da Academia Itajaiense de Letras e do Clube da Imprensa de Itajaí, e idealizador da <a href="https://itajaipedia.com.br">Itajaipedia</a>.</p>
     <p>Graduado em Pedagogia e em História pela Univali e mestre em Educação pela Furb, publicou mais de quarenta títulos entre poesia, ensaio, pesquisa histórica e grande reportagem. Expõe xilogravura e fotografia desde 1974 e mantém ateliê na Rua Conceição, no bairro São João, desde 2022.</p>

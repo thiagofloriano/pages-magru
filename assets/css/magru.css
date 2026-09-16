@@ -540,10 +540,15 @@ main {
   }
 }
 
+/* O container continua sendo o .envelope centralizado: quem limita a medida
+   de leitura são os filhos. Estreitar o próprio .prosa anularia o margin
+   auto do envelope e jogaria o bloco para a borda da janela. */
 .prosa {
   padding-top: clamp(2rem, 6vw, 3rem);
+}
+
+.prosa > * {
   max-width: var(--medida);
-  margin-inline: 0;
 }
 
 .prosa h2 {
