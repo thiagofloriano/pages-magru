@@ -1,0 +1,658 @@
+/* Universo do Magru — carta celeste gravada */
+
+:root {
+  --tinta: #0a1020;
+  --tinta-alta: #121a2e;
+  --papel: #ede6d8;
+  --papel-fraco: #98a2ba;
+  --sol: #f0a830;
+  --sol-brasa: #e2582a;
+  --linha: rgba(237, 230, 216, 0.16);
+  --linha-forte: rgba(237, 230, 216, 0.34);
+
+  --literatura: #9bc4e2;
+  --ensaios: #a78bc8;
+  --historia: #5fb49c;
+  --imprensa: #c0c6ce;
+  --artes: #c97fa8;
+  --blog: #6fd3d8;
+
+  --acento: var(--sol);
+
+  --display: "Fraunces", Georgia, "Times New Roman", serif;
+  --texto: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --medida: 66ch;
+  --gutter: clamp(1.25rem, 5vw, 3rem);
+  --ritmo: clamp(3.5rem, 9vw, 7rem);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  background-color: var(--tinta);
+  background-image:
+    radial-gradient(circle at 50% -10%, rgba(240, 168, 48, 0.13), transparent 52%),
+    radial-gradient(circle at 50% -10%, rgba(226, 88, 42, 0.09), transparent 34%);
+  background-repeat: no-repeat;
+  color: var(--papel);
+  font-family: var(--texto);
+  font-size: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
+  line-height: 1.65;
+  text-rendering: optimizeLegibility;
+}
+
+/* Estipulado de gravura: pontilhado tênue sobre a tinta. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+  background-image: radial-gradient(rgba(237, 230, 216, 0.09) 0.5px, transparent 0.5px);
+  background-size: 4px 4px;
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-variation-settings: "SOFT" 0, "WONK" 1;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+a {
+  color: var(--papel);
+  text-decoration-color: var(--linha-forte);
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 1px;
+}
+
+a:hover {
+  text-decoration-color: var(--acento);
+}
+
+:focus-visible {
+  outline: 2px solid var(--sol);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.envelope {
+  width: min(100% - var(--gutter) * 2, 68rem);
+  margin-inline: auto;
+}
+
+.pular {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+}
+
+.pular:focus {
+  left: var(--gutter);
+  top: 0.75rem;
+  z-index: 10;
+  background: var(--tinta-alta);
+  padding: 0.6rem 1rem;
+}
+
+/* ---------- Cabeçalho ---------- */
+
+.topo {
+  border-bottom: 1px solid var(--linha);
+}
+
+.topo__interno {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 1.1rem;
+}
+
+.marca {
+  font-family: var(--display);
+  font-variation-settings: "SOFT" 0, "WONK" 1;
+  font-size: 1.2rem;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.marca__astro {
+  width: 0.72em;
+  height: 0.72em;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffd88a, var(--sol) 45%, var(--sol-brasa));
+  flex: none;
+}
+
+.menu-botao {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: 1px solid var(--linha-forte);
+  color: inherit;
+  font: inherit;
+  font-size: 0.9rem;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+}
+
+.menu-botao:hover {
+  border-color: var(--sol);
+}
+
+.rota {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.35rem;
+  list-style: none;
+  margin: 0;
+  padding: 0 0 1.1rem;
+  font-size: 0.95rem;
+}
+
+.rota a {
+  text-decoration: none;
+  color: var(--papel-fraco);
+  padding-block: 0.2rem;
+}
+
+.rota a:hover {
+  color: var(--papel);
+}
+
+.rota [aria-current="page"] {
+  color: var(--papel);
+  box-shadow: inset 0 -1px 0 var(--acento);
+}
+
+@media (max-width: 47.99em) {
+  .rota[hidden] {
+    display: none;
+  }
+  .rota {
+    flex-direction: column;
+    gap: 0;
+  }
+  .rota li {
+    border-top: 1px solid var(--linha);
+  }
+  .rota a {
+    display: block;
+    padding-block: 0.7rem;
+  }
+}
+
+@media (min-width: 48em) {
+  .menu-botao {
+    display: none;
+  }
+  .rota[hidden] {
+    display: flex;
+  }
+}
+
+/* ---------- Diagrama orbital ---------- */
+/* A esfera inteira gira num período único: os planetas mantêm distância
+   fixa entre si e nunca colidem, como num astrolábio. */
+
+.sistema {
+  --raio: min(30vw, 11rem);
+  --periodo: 260s;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  width: min(96vw, 34rem);
+  margin: clamp(1rem, 4vw, 2rem) auto clamp(1.5rem, 5vw, 2.5rem);
+}
+
+.sistema > * {
+  grid-area: 1 / 1;
+}
+
+.sol {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  width: min(26vw, 8rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 32%, #ffe3a8, var(--sol) 42%, var(--sol-brasa) 88%);
+  color: #2a1403;
+  box-shadow: 0 0 4rem rgba(240, 168, 48, 0.3);
+  margin: 0;
+  padding: 0.5rem;
+  font-family: var(--display);
+  font-variation-settings: "SOFT" 0, "WONK" 1;
+  font-size: clamp(0.95rem, 3.4vw, 1.2rem);
+  line-height: 1.05;
+}
+
+.anel {
+  width: calc(var(--f) * var(--raio) * 2);
+  aspect-ratio: 1;
+  border: 1px solid var(--linha);
+  border-radius: 50%;
+}
+
+.orbita {
+  position: relative;
+  width: calc(var(--f) * var(--raio) * 2);
+  aspect-ratio: 1;
+  transform: rotate(var(--angulo));
+  animation: girar var(--periodo) linear infinite;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(calc(var(--angulo) + 360deg));
+  }
+}
+
+@keyframes desgirar {
+  to {
+    transform: rotate(calc(var(--angulo) * -1 - 360deg));
+  }
+}
+
+.planeta {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  translate: -50% -50%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 0.92rem;
+  transform: rotate(calc(var(--angulo) * -1));
+  animation: desgirar var(--periodo) linear infinite;
+}
+
+.planeta::before {
+  content: "";
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: var(--cor);
+  box-shadow: 0 0 0 0.35rem var(--tinta);
+  flex: none;
+}
+
+.planeta:hover,
+.planeta:focus-visible {
+  color: var(--cor);
+}
+
+/* No celular não há largura para seis rótulos girando: ficam os pontos,
+   com o nome disponível para leitores de tela e teclado. */
+@media (max-width: 47.99em) {
+  .planeta span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .planeta {
+    padding: 0.85rem;
+  }
+  .planeta::before {
+    width: 0.85rem;
+    height: 0.85rem;
+  }
+}
+
+@media (min-width: 48em) {
+  .planeta span {
+    background: var(--tinta);
+    padding-inline: 0.15rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbita,
+  .planeta {
+    animation: none;
+  }
+}
+
+/* ---------- Home ---------- */
+
+.abertura {
+  padding-top: clamp(2rem, 6vw, 3.5rem);
+  text-align: center;
+}
+
+.abertura h1 {
+  font-size: clamp(2.1rem, 8vw, 3.9rem);
+  max-width: 18ch;
+  margin-inline: auto;
+}
+
+.abertura p {
+  max-width: 54ch;
+  margin: 1.1rem auto 0;
+  color: var(--papel-fraco);
+  font-size: clamp(1rem, 0.95rem + 0.4vw, 1.15rem);
+}
+
+.orbitas {
+  display: grid;
+  gap: 1px;
+  background: var(--linha);
+  border-block: 1px solid var(--linha);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.orbitas a {
+  display: grid;
+  gap: 0.4rem;
+  align-content: start;
+  background: var(--tinta);
+  padding: clamp(1.4rem, 4vw, 2rem) clamp(1.1rem, 3vw, 1.6rem);
+  height: 100%;
+  text-decoration: none;
+}
+
+.orbitas a:hover {
+  background: var(--tinta-alta);
+}
+
+/* Seis seções: duas colunas de três, ou três de dois. Nunca uma célula vazia. */
+@media (min-width: 34em) {
+  .orbitas {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 58em) {
+  .orbitas {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.orbitas b {
+  font-family: var(--display);
+  font-variation-settings: "SOFT" 0, "WONK" 1;
+  font-weight: 400;
+  font-size: 1.4rem;
+  color: var(--cor, var(--papel));
+}
+
+.orbitas span {
+  color: var(--papel-fraco);
+  font-size: 0.95rem;
+}
+
+.orbitas em {
+  font-style: normal;
+  color: var(--papel-fraco);
+  font-size: 0.82rem;
+}
+
+/* ---------- Seções e prosa ---------- */
+
+main {
+  display: block;
+  padding-bottom: var(--ritmo);
+}
+
+.cabeca {
+  padding-block: clamp(2.5rem, 8vw, 4.5rem) clamp(1.5rem, 4vw, 2.5rem);
+  border-bottom: 2px solid var(--acento);
+}
+
+.cabeca h1 {
+  font-size: clamp(2.2rem, 8vw, 3.6rem);
+  max-width: 16ch;
+}
+
+.cabeca p {
+  max-width: var(--medida);
+  margin: 1.2rem 0 0;
+  color: var(--papel-fraco);
+  font-size: clamp(1.02rem, 0.97rem + 0.4vw, 1.18rem);
+}
+
+.migalhas {
+  font-size: 0.88rem;
+  color: var(--papel-fraco);
+  margin-bottom: 1.4rem;
+}
+
+.migalhas a {
+  color: inherit;
+}
+
+.migalhas b {
+  font-weight: 400;
+  color: var(--acento);
+}
+
+.acervo {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.obra {
+  border-bottom: 1px solid var(--linha);
+  padding-block: clamp(1.8rem, 5vw, 2.6rem);
+  display: grid;
+  gap: 0.7rem;
+}
+
+.obra h2 {
+  font-size: clamp(1.35rem, 4.5vw, 1.8rem);
+  max-width: 24ch;
+}
+
+.obra p {
+  margin: 0;
+  max-width: var(--medida);
+  color: var(--papel-fraco);
+}
+
+.baixar {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.3rem;
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--linha-forte);
+  text-decoration: none;
+  font-size: 0.92rem;
+}
+
+.baixar:hover {
+  border-color: var(--acento);
+  color: var(--acento);
+}
+
+.baixar::before {
+  content: "";
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--acento);
+  flex: none;
+}
+
+@media (min-width: 56em) {
+  .obra {
+    grid-template-columns: 20rem 1fr;
+    column-gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+  }
+  .obra h2 {
+    grid-column: 1;
+    grid-row: 1 / -1;
+  }
+  .obra > :not(h2) {
+    grid-column: 2;
+  }
+}
+
+.prosa {
+  padding-top: clamp(2rem, 6vw, 3rem);
+  max-width: var(--medida);
+  margin-inline: 0;
+}
+
+.prosa h2 {
+  font-size: clamp(1.4rem, 4.5vw, 1.9rem);
+  margin-top: clamp(2.6rem, 7vw, 3.6rem);
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--linha);
+  color: var(--acento);
+}
+
+.prosa p {
+  margin: 1.1rem 0 0;
+}
+
+.prosa ul {
+  margin: 1.4rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.prosa li {
+  padding: 0.7rem 0 0.7rem 1.4rem;
+  border-top: 1px solid var(--linha);
+  position: relative;
+}
+
+.prosa li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1.35em;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--linha-forte);
+}
+
+.destaque {
+  font-variant-numeric: tabular-nums;
+  color: var(--papel);
+}
+
+/* ---------- Rodapé ---------- */
+
+.rodape {
+  border-top: 1px solid var(--linha);
+  padding-block: clamp(2.5rem, 7vw, 4rem);
+  font-size: 0.93rem;
+  color: var(--papel-fraco);
+}
+
+.rodape__grade {
+  display: grid;
+  gap: clamp(2rem, 5vw, 3rem);
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+}
+
+.rodape h2 {
+  font-family: var(--texto);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--papel);
+  margin-bottom: 0.9rem;
+}
+
+.rodape ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.rodape a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.rodape a:hover {
+  color: var(--papel);
+  text-decoration: underline;
+  text-decoration-color: var(--acento);
+}
+
+.rodape__nota {
+  margin: clamp(2rem, 5vw, 3rem) 0 0;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--linha);
+  max-width: var(--medida);
+}
+
+/* ---------- 404 ---------- */
+
+.perdido {
+  text-align: center;
+  padding-block: clamp(4rem, 14vw, 9rem);
+}
+
+.perdido h1 {
+  font-size: clamp(2.2rem, 9vw, 4rem);
+}
+
+.perdido p {
+  max-width: 46ch;
+  margin: 1.2rem auto 2rem;
+  color: var(--papel-fraco);
+}
+
+.obra__ficha {
+  font-size: 0.86rem;
+  color: var(--papel-fraco);
+  opacity: 0.75;
+}
+
+@media (min-width: 56em) {
+  .obra__ficha {
+    grid-column: 2;
+  }
+}

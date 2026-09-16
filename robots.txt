@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://magru.com.br/sitemap.xml
