@@ -634,6 +634,32 @@ main {
   padding-top: 1.2rem;
   border-top: 1px solid var(--linha);
   max-width: var(--medida);
+  color: var(--papel);
+}
+
+.rodape__nota b {
+  font-weight: 600;
+  color: var(--acento);
+}
+
+.rodape__bio {
+  margin: 1rem 0 0;
+  max-width: var(--medida);
+}
+
+/* Junto dos downloads, onde a condição de uso importa. */
+.nota-direitos {
+  margin-top: 1.4rem;
+  max-width: var(--medida);
+  padding-left: 1rem;
+  border-left: 2px solid var(--acento);
+  font-size: 0.9rem;
+  color: var(--papel-fraco);
+}
+
+.nota-direitos a {
+  color: var(--papel);
+  white-space: nowrap;
 }
 
 /* ---------- 404 ---------- */

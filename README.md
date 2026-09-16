@@ -50,6 +50,12 @@ O endereço está escrito nos links de cada página. Para mudar todos de uma vez
 grep -rl 'blog.magru.com.br' --include='*.html' . | xargs sed -i 's|blog\.magru\.com\.br|NOVO.HOST|g'
 ```
 
+## Direitos de uso
+
+Os livros podem ser baixados, lidos e usados para fins educacionais e jornalísticos, desde que citada a fonte. Os direitos de reprodução, alteração e comercialização são reservados ao autor.
+
+O texto aparece no rodapé de todas as páginas, num aviso acima da lista de obras em cada seção, e nos metadados estruturados de cada livro (`copyrightHolder`, `copyrightNotice`, `isAccessibleForFree`). Se mudar, mude nos três lugares.
+
 ## Adicionar uma obra
 
 Copie um bloco `<li class="obra">` dentro da seção certa e troque título, descrição, ficha bibliográfica e o link do PDF. O tamanho do arquivo no texto do link é informação útil para quem está no celular — vale atualizar.

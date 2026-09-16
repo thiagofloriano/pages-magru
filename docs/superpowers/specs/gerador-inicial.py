@@ -173,6 +173,9 @@ ACERVO = {
     ]),
 }
 
+DIREITOS = ("Os livros podem ser baixados, lidos e usados para fins educacionais e jornalísticos, desde que citada a fonte. "
+            "Os direitos de reprodução, alteração e comercialização são reservados ao autor.")
+
 EXTERNOS = [
     ("Blog do Magru", WP + "/web/blog/", "Textos novos, no WordPress"),
     ("Itajaipedia", "https://itajaipedia.com.br", "Enciclopédia digital itajaiense"),
@@ -242,7 +245,8 @@ def rodape():
         </ul>
       </div>
     </div>
-    <p class="rodape__nota">Universo do Magru reúne a obra de Hélio Floriano dos Santos, o Magru Floriano, escritor, historiador e xilogravurista nascido em Itajaí em 1956. Os livros são de leitura e download livres.</p>
+    <p class="rodape__nota" id="direitos"><b>Direitos de uso.</b> {DIREITOS}</p>
+    <p class="rodape__bio">Universo do Magru reúne a obra de Hélio Floriano dos Santos, o Magru Floriano, escritor, historiador e xilogravurista nascido em Itajaí em 1956.</p>
   </div>
 </footer>"""
 
@@ -356,6 +360,8 @@ def home():
         "url": SITE + "/",
         "inLanguage": "pt-BR",
         "about": "Obra de Magru Floriano sobre a história de Itajaí, imprensa regional, poesia e xilogravura",
+        "copyrightHolder": {"@type": "Person", "name": "Magru Floriano"},
+        "copyrightNotice": DIREITOS,
     }
     escrever("index.html", pagina(
         "Universo do Magru — obra de Magru Floriano: história de Itajaí, poesia e xilogravura",
@@ -375,13 +381,16 @@ def secao(slug):
         <h2>{e(titulo)}</h2>
         <p>{e(texto)}</p>
         <p class="obra__ficha">{e(ficha)}</p>
-        <a class="baixar" href="{url}" type="application/pdf" aria-label="Ler {e(titulo)} em PDF, {tamanho(pdf)}">Ler em PDF ({tamanho(pdf)})</a>
+        <a class="baixar" href="{url}" type="application/pdf" aria-label="Ler em PDF ({tamanho(pdf)}): {e(titulo)}">Ler em PDF ({tamanho(pdf)})</a>
       </li>""")
         ld_itens.append({
             "@type": "ListItem", "position": i,
             "item": {"@type": "Book", "name": titulo, "author": {"@type": "Person", "name": "Magru Floriano"},
                      "inLanguage": "pt-BR", "url": url, "encodingFormat": "application/pdf",
-                     "abstract": texto},
+                     "abstract": texto,
+                     "isAccessibleForFree": True,
+                     "copyrightHolder": {"@type": "Person", "name": "Magru Floriano"},
+                     "copyrightNotice": DIREITOS},
         })
 
     corpo = f"""<main id="conteudo">
@@ -389,6 +398,7 @@ def secao(slug):
     <p class="migalhas"><a href="/">Universo do Magru</a> / <b>{e(d["titulo"])}</b></p>
     <h1>{e(d["subtitulo"])}</h1>
     <p>{e(d["lead"])}</p>
+    <p class="nota-direitos">{e(DIREITOS)}</p>
   </div>
   <div class="envelope">
     <ul class="acervo">

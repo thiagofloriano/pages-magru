@@ -93,6 +93,12 @@ Duas famílias de caminho legado convivem e ambas precisam ser preservadas:
 - `sitemap.xml` com as sete URLs e `robots.txt` apontando para ele.
 - Links para PDF com `type="application/pdf"` e texto âncora descritivo, nunca "clique aqui".
 
+## Direitos de uso
+
+Os livros são de download e leitura livres, e podem ser usados para fins educacionais e jornalísticos desde que citada a fonte. Os direitos de reprodução, alteração e comercialização são reservados ao autor.
+
+A condição aparece em três lugares: no rodapé de todas as páginas, num aviso logo acima da lista de obras em cada seção — onde a pessoa está prestes a baixar — e nos metadados estruturados de cada livro, em `copyrightHolder`, `copyrightNotice` e `isAccessibleForFree`.
+
 ## Acessibilidade
 
 - Contraste AA em todo texto.
