@@ -23,11 +23,15 @@ Para editar qualquer página, abra o `.html` e escreva. Não há passo de compil
 
 ## Ver o site na sua máquina
 
+Dê dois cliques no `index.html`. Todos os caminhos são relativos, então o site renderiza e navega direto do disco, sem servidor — e pela mesma razão funciona tanto na raiz de um domínio quanto num subcaminho como `thiagofloriano.github.io/pages-magru/`.
+
+Se preferir um servidor:
+
 ```bash
 python3 -m http.server 8777
 ```
 
-Depois abra <http://localhost:8777>.
+Os links internos apontam para `pasta/index.html` em vez de `pasta/`, que é o que faz a navegação funcionar no `file://`. As URLs limpas continuam sendo as canônicas: cada página declara `rel="canonical"` para `https://magru.com.br/secao/`, e é essa que o sitemap lista e o Google indexa.
 
 ## Publicar
 

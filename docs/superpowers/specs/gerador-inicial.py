@@ -198,19 +198,19 @@ def e(s):
     return html.escape(s, quote=False)
 
 
-def cabecalho(atual):
+def cabecalho(atual, rel):
     itens = []
     for s in SECOES:
-        href = WP + "/web/blog/" if s["slug"] == "blog" else f"/{s['slug']}/"
+        href = WP + "/web/blog/" if s["slug"] == "blog" else f"{rel}{s['slug']}/index.html"
         marca = ' aria-current="page"' if s["slug"] == atual else ""
         itens.append(f'      <li><a href="{href}"{marca}>{e(s["nome"])}</a></li>')
     marca_cv = ' aria-current="page"' if atual == "curriculo" else ""
-    itens.append(f'      <li><a href="/curriculo/"{marca_cv}>Currículo</a></li>')
+    itens.append(f'      <li><a href="{rel}curriculo/index.html"{marca_cv}>Currículo</a></li>')
     return f"""<a class="pular" href="#conteudo">Ir para o conteúdo</a>
 <header class="topo">
   <div class="envelope">
     <div class="topo__interno">
-      <a class="marca" href="/"><span class="marca__astro" aria-hidden="true"></span>Universo do Magru</a>
+      <a class="marca" href="{rel}index.html"><span class="marca__astro" aria-hidden="true"></span>Universo do Magru</a>
       <button class="menu-botao" type="button" aria-controls="rota" hidden>Seções</button>
     </div>
     <ul class="rota" id="rota">
@@ -220,12 +220,12 @@ def cabecalho(atual):
 </header>"""
 
 
-def rodape():
+def rodape(rel):
     links = "\n".join(
         f'          <li><a href="{u}">{e(n)}</a></li>' for n, u, _ in EXTERNOS
     )
     secoes = "\n".join(
-        f'          <li><a href="/{s["slug"]}/">{e(s["nome"])}</a></li>'
+        f'          <li><a href="{rel}{s["slug"]}/index.html">{e(s["nome"])}</a></li>'
         for s in SECOES if s["slug"] != "blog"
     )
     return f"""<footer class="rodape">
@@ -235,7 +235,7 @@ def rodape():
         <h2>Acervo</h2>
         <ul>
 {secoes}
-          <li><a href="/curriculo/">Currículo</a></li>
+          <li><a href="{rel}curriculo/index.html">Currículo</a></li>
         </ul>
       </div>
       <div>
@@ -251,7 +251,12 @@ def rodape():
 </footer>"""
 
 
-def pagina(titulo, descricao, url, corpo, jsonld, atual="", cor=None, classe=""):
+def pagina(titulo, descricao, url, corpo, jsonld, atual="", cor=None, classe="", prof=0, base=None):
+    # Caminhos relativos: o site funciona tanto na raiz de magru.com.br quanto
+    # num subcaminho, como o thiagofloriano.github.io/pages-magru/ do GitHub Pages.
+    # O 404 é a exceção: como é servido a partir de qualquer caminho, precisa de
+    # endereços absolutos.
+    rel = base if base is not None else "../" * prof
     estilo = f' style="--acento: var({cor})"' if cor else ""
     ld = "\n".join(
         '<script type="application/ld+json">' + json.dumps(j, ensure_ascii=False) + "</script>"
@@ -272,17 +277,17 @@ def pagina(titulo, descricao, url, corpo, jsonld, atual="", cor=None, classe="")
 <meta property="og:description" content="{html.escape(descricao)}">
 <meta property="og:url" content="{url}">
 <meta name="twitter:card" content="summary">
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="{rel}assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..600,0..100,0..1&display=swap">
-<link rel="stylesheet" href="/assets/css/magru.css">
+<link rel="stylesheet" href="{rel}assets/css/magru.css">
 {ld}
 </head>
 <body{f' class="{classe}"' if classe else ""}>
-{cabecalho(atual)}
+{cabecalho(atual, rel)}
 {corpo}
-{rodape()}
-<script src="/assets/js/magru.js" defer></script>
+{rodape(rel)}
+<script src="{rel}assets/js/magru.js" defer></script>
 </body>
 </html>
 """
@@ -300,7 +305,7 @@ def escrever(caminho, conteudo):
 def home():
     aneis, orbitas, cartoes = [], [], []
     for s in SECOES:
-        href = WP + "/web/blog/" if s["slug"] == "blog" else f"/{s['slug']}/"
+        href = WP + "/web/blog/" if s["slug"] == "blog" else f"{s['slug']}/index.html"
         aneis.append(f'    <div class="anel" style="--f: {s["f"]}"></div>')
         orbitas.append(
             f'    <div class="orbita" style="--f: {s["f"]}; --angulo: {s["ang"]}">\n'
@@ -338,7 +343,7 @@ def home():
     <h2>Quem é Magru Floriano</h2>
     <p>Hélio Floriano dos Santos nasceu em Itajaí em 13 de agosto de 1956. Começou na imprensa em 1975, editando o jornal alternativo <em>Atire a Primeira Pedra</em>, e desde então foi repórter do Jornal de Santa Catarina, professor da Univali por 28 anos, fundador do curso de Jornalismo e da Rádio Univali FM, presidente da Academia Itajaiense de Letras e do Clube da Imprensa de Itajaí, e idealizador da <a href="https://itajaipedia.com.br">Itajaipedia</a>.</p>
     <p>Graduado em Pedagogia e em História pela Univali e mestre em Educação pela Furb, publicou mais de quarenta títulos entre poesia, ensaio, pesquisa histórica e grande reportagem. Expõe xilogravura e fotografia desde 1974 e mantém ateliê na Rua Conceição, no bairro São João, desde 2022.</p>
-    <p><a href="/curriculo/">Ver o currículo completo</a></p>
+    <p><a href="curriculo/index.html">Ver o currículo completo</a></p>
   </div>
 </main>"""
 
@@ -395,7 +400,7 @@ def secao(slug):
 
     corpo = f"""<main id="conteudo">
   <div class="envelope cabeca">
-    <p class="migalhas"><a href="/">Universo do Magru</a> / <b>{e(d["titulo"])}</b></p>
+    <p class="migalhas"><a href="../index.html">Universo do Magru</a> / <b>{e(d["titulo"])}</b></p>
     <h1>{e(d["subtitulo"])}</h1>
     <p>{e(d["lead"])}</p>
     <p class="nota-direitos">{e(DIREITOS)}</p>
@@ -423,7 +428,7 @@ def secao(slug):
     }
     escrever(f"{slug}/index.html", pagina(
         f"{d['titulo']} — {d['subtitulo']} | Magru Floriano",
-        d["meta"], url, corpo, [colecao, migalhas], atual=slug, cor=s["cor"]))
+        d["meta"], url, corpo, [colecao, migalhas], atual=slug, cor=s["cor"], prof=1))
 
 
 # ---------- currículo ----------
@@ -460,7 +465,7 @@ def curriculo():
 
     corpo = f"""<main id="conteudo">
   <div class="envelope cabeca">
-    <p class="migalhas"><a href="/">Universo do Magru</a> / <b>Currículo</b></p>
+    <p class="migalhas"><a href="../index.html">Universo do Magru</a> / <b>Currículo</b></p>
     <h1>Magru Floriano</h1>
     <p>Cinco décadas de imprensa, docência, pesquisa histórica e artes visuais no litoral de Santa Catarina.</p>
   </div>
@@ -472,7 +477,7 @@ def curriculo():
 {anuario_html}
     </ul>
     <h2>Obra publicada</h2>
-    <p>Mídia impressa, xerografada e digital. Os títulos disponíveis em PDF estão nas seções de <a href="/literatura/">literatura</a>, <a href="/ensaios/">ensaios</a>, <a href="/historia/">história</a>, <a href="/imprensa/">imprensa</a> e <a href="/artes/">artes</a>.</p>
+    <p>Mídia impressa, xerografada e digital. Os títulos disponíveis em PDF estão nas seções de <a href="../literatura/index.html">literatura</a>, <a href="../ensaios/index.html">ensaios</a>, <a href="../historia/index.html">história</a>, <a href="../imprensa/index.html">imprensa</a> e <a href="../artes/index.html">artes</a>.</p>
     <ul>
 {obra_html}
     </ul>
@@ -502,20 +507,20 @@ def curriculo():
     escrever("curriculo/index.html", pagina(
         "Currículo de Magru Floriano — escritor, historiador e jornalista de Itajaí",
         "Trajetória de Hélio Floriano dos Santos, o Magru Floriano: imprensa desde 1975, docência na Univali, pesquisa histórica sobre Itajaí, xilogravura e obra publicada.",
-        url, corpo, [ld, migalhas], atual="curriculo"))
+        url, corpo, [ld, migalhas], atual="curriculo", prof=1))
 
 
 def erro404():
-    corpo = """<main id="conteudo">
+    corpo = f"""<main id="conteudo">
   <div class="envelope perdido">
     <h1>Essa página saiu de órbita</h1>
     <p>O endereço não existe mais, ou nunca existiu. O acervo inteiro continua a um clique daqui.</p>
-    <p><a href="/">Voltar ao centro do sistema</a></p>
+    <p><a href="{SITE}/">Voltar ao centro do sistema</a></p>
   </div>
 </main>"""
     escrever("404.html", pagina("Página não encontrada — Universo do Magru",
                                "O endereço pedido não existe no Universo do Magru.",
-                               SITE + "/404.html", corpo, []))
+                               SITE + "/404.html", corpo, [], base=SITE + "/"))
 
 
 def extras():
