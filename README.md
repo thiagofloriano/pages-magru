@@ -35,10 +35,16 @@ Os links internos apontam para `pasta/index.html` em vez de `pasta/`, que é o q
 
 ## Publicar
 
-1. Em Settings → Pages do repositório, escolha "Deploy from a branch", branch `main`, pasta `/`.
-2. Ainda em Pages, no campo de domínio personalizado, coloque `magru.com.br`. O arquivo `CNAME` já está no repositório.
-3. No DNS do domínio, aponte `magru.com.br` para o GitHub Pages: quatro registros A para `185.199.108.153`, `185.199.109.153`, `185.199.110.153` e `185.199.111.153`, e um CNAME de `www` para `<usuário>.github.io`.
-4. Marque "Enforce HTTPS" quando o certificado sair.
+O site está no ar em <https://thiagofloriano.github.io/pages-magru/>, com o Pages servindo `main` a partir da raiz.
+
+**Não há arquivo `CNAME` no repositório, de propósito.** Enquanto existir, o GitHub redireciona a URL de preview para o domínio personalizado e não dá para mostrar o site a ninguém antes da migração. Ele só entra quando o Magru aprovar a troca do DNS.
+
+Na hora da migração, nesta ordem:
+
+1. Subir o WordPress em `blog.magru.com.br` com as duas árvores de uploads intactas, e conferir que os PDFs abrem lá.
+2. No DNS, apontar `magru.com.br` para o GitHub Pages: quatro registros A para `185.199.108.153`, `185.199.109.153`, `185.199.110.153` e `185.199.111.153`, e um CNAME de `www` para `<usuário>.github.io`.
+3. Só então criar o arquivo `CNAME` na raiz do repositório com o conteúdo `magru.com.br`, ou preencher o campo de domínio personalizado em Settings → Pages.
+4. Marcar "Enforce HTTPS" quando o certificado sair.
 
 ## Antes de trocar o DNS
 

@@ -532,7 +532,8 @@ def extras():
              '<?xml version="1.0" encoding="UTF-8"?>\n'
              '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + corpo + "\n</urlset>\n")
     escrever("robots.txt", f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
-    escrever("CNAME", "magru.com.br\n")
+    # Sem CNAME: o domínio personalizado só entra quando a migração do DNS for
+    # aprovada. Escrever o arquivo aqui derruba a URL de preview do GitHub Pages.
     escrever("assets/favicon.svg", """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
 <rect width="32" height="32" fill="#0a1020"/>
 <circle cx="16" cy="16" r="13" fill="none" stroke="#ede6d8" stroke-opacity=".3"/>
