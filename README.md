@@ -31,7 +31,7 @@ Se preferir um servidor:
 python3 -m http.server 8777
 ```
 
-Os links internos apontam para `pasta/index.html` em vez de `pasta/`, que é o que faz a navegação funcionar no `file://`. As URLs limpas continuam sendo as canônicas: cada página declara `rel="canonical"` para `https://magru.com.br/secao/`, e é essa que o sitemap lista e o Google indexa.
+Os links internos apontam para `pasta/index.html` em vez de `pasta/`, que é o que faz a navegação funcionar no `file://`. As URLs limpas continuam sendo as canônicas: cada página declara `rel="canonical"` para `https://magru.com.br/secao/`, e é essa que o sitemap lista e o Google indexa. Ao editar uma página, atualize o `lastmod` dela no `sitemap.xml`: é o único campo que o Google lê.
 
 ## Publicar
 
